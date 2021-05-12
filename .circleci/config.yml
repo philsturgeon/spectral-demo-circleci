@@ -9,11 +9,18 @@ jobs:
       - image: cimg/node:15.1
     steps:
       # Checkout the code as the first step.
-      - checkout 
+      - checkout
+      # Create a folder for results to live in
+      - run: "[ -d lint-results ] || mkdir lint-results"
       - run:
           name: Run Spectral Lint
-          command: npx @stoplight/spectral lint openapi.yaml -- --format=junit
-
+          command: 
+            npx @stoplight/spectral lint openapi.yaml
+              -o lint-results/junit.xml
+              -f junit 
+      - store_test_results:
+          path: lint-results
+          
 workflows:
   sample: 
     jobs:
