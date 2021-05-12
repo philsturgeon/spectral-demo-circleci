@@ -1,0 +1,20 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@4.1
+
+jobs:
+  lint:  
+    docker:
+      - image: cimg/node:15.1
+    steps:
+      # Checkout the code as the first step.
+      - checkout 
+      - run:
+          name: Run Spectral Lint
+          command: npx @stoplight/spectral lint openapi.yaml -- --format=junit
+
+workflows:
+  sample: 
+    jobs:
+      - lint
