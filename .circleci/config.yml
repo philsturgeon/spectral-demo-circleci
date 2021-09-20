@@ -1,12 +1,9 @@
 version: 2.1
 
-orbs:
-  node: circleci/node@4.7
-
 jobs:
   lint:  
     docker:
-      - image: cimg/node:16
+      - image: cimg/node:16.8
     steps:
       # Checkout the code as the first step.
       - checkout
